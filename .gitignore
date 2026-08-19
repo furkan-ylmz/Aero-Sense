@@ -1,0 +1,85 @@
+# ====================================
+# Aero-Sense: Git Ignore Configuration
+# ====================================
+
+# C++ Build Artifacts & CMake
+build/
+**/build/
+bin/
+obj/
+*.exe
+*.obj
+*.o
+*.lib
+*.a
+*.dll
+*.so
+*.dylib
+*.vcxproj*
+*.sln*
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Python & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+
+# Large Model Weights & Raw Data Files
+*.pt
+*.pth
+*.onnx
+*.npy
+*.parquet
+*.h5
+*.csv.gz
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*.npy
+!data/processed/.gitkeep
+!data/processed/norm_params.json
+models/*.pt
+models/*.onnx
+!models/.gitkeep
+
+# IDEs & Editors
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docker Volume Mounts & Logs
+*.log
+docker/influxdb_data/
+docker/grafana_data/
