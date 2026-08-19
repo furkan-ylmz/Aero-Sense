@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package defense.telemetry;
+
+enum ManeuverType {
+  MANEUVER_STRAIGHT = 0;
+  MANEUVER_TURN = 1;
+  MANEUVER_CLIMB = 2;
+  MANEUVER_DESCENT = 3;
+  MANEUVER_ORBIT = 4;
+  MANEUVER_EVASIVE = 5;
+}
+
+message TelemetryPacket {
+  string track_id = 1;                    // Target Track Identifier (e.g., "TRK-2026-X4")
+  uint64 timestamp = 2;                   // Unix Epoch Milliseconds (UTC)
+  double latitude = 3;                    // Degrees (-90.0 to +90.0)
+  double longitude = 4;                   // Degrees (-180.0 to +180.0)
+  double altitude_m = 5;                  // Altitude in meters
+  double ground_speed_mps = 6;            // Ground speed in m/s
+  double track_angle_deg = 7;             // Track heading angle in degrees (0.0 to 360.0)
+  
+  ManeuverType detected_maneuver = 8;     // Predicted maneuver class
+  float maneuver_confidence = 9;          // Confidence score [0.0 to 1.0]
+  repeated float class_probabilities = 10;// Softmax probability distribution (6 classes)
+  float inference_latency_ms = 11;        // Measured core inference latency in ms
+}
