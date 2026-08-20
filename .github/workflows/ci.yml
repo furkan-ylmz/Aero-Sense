@@ -57,7 +57,7 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           cd src_cpp
-          cmake -B build -G "Visual Studio 17 2022" -A x64
+          cmake -B build
           cmake --build build --config Release
 
       - name: Run End-to-End Integration & Latency Benchmark Test
