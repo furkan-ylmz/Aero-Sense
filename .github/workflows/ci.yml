@@ -1,0 +1,62 @@
+name: Aero-Sense CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  cross-platform-build-test:
+    name: Build & Validate (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, windows-latest]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch torchvision numpy scipy onnx onnxruntime protobuf onnxscript grpcio-tools
+
+      - name: Compile Protobuf Schema
+        run: |
+          python -m grpc_tools.protoc -Iproto --python_out=proto/generated proto/telemetry.proto
+
+      - name: Generate Kinematic Synthetic Dataset
+        run: |
+          python scripts/generate_synthetic_data.py --samples_per_class 600
+
+      - name: Train 1D-CNN + BiLSTM Model & Export ONNX
+        run: |
+          python scripts/train_model.py --epochs 10
+
+      - name: Setup CMake
+        uses: jwlawson/actions-setup-cmake@v2
+        with:
+          cmake-version: '3.28'
+
+      - name: Build C++ Core Inference Engine (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          cd src_cpp
+          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --config Release -j$(nproc)
+
+      - name: Build C++ Core Inference Engine (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          cd src_cpp
+          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --config Release
