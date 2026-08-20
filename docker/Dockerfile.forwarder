@@ -1,0 +1,10 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY proto/ ./proto/
+COPY docker/telemetry_forwarder.py ./telemetry_forwarder.py
+
+RUN pip install --no-cache-dir requests protobuf
+
+CMD ["python", "telemetry_forwarder.py"]

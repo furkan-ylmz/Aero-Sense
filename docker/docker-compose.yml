@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  influxdb:
+    image: influxdb:2.7
+    container_name: telemetry_influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=adminpassword123
+      - DOCKER_INFLUXDB_INIT_ORG=defense_org
+      - DOCKER_INFLUXDB_INIT_BUCKET=telemetry_stream
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=telemetry-secret-token-2026
+    volumes:
+      - influxdb_data:/var/lib/influxdb2
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: telemetry_grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - influxdb
+
+  telemetry_forwarder:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.forwarder
+    container_name: telemetry_forwarder
+    ports:
+      - "5006:5006/udp"
+    environment:
+      - INFLUX_URL=http://influxdb:8086
+      - INFLUX_TOKEN=telemetry-secret-token-2026
+      - INFLUX_ORG=defense_org
+      - INFLUX_BUCKET=telemetry_stream
+      - UDP_PORT=5006
+    depends_on:
+      - influxdb
+
+volumes:
+  influxdb_data:
+  grafana_data:
