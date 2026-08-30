@@ -49,14 +49,14 @@ jobs:
       - name: Build C++ Core Inference Engine (Linux)
         if: runner.os == 'Linux'
         run: |
-          cd src_cpp
+          cd core
           cmake -B build -DCMAKE_BUILD_TYPE=Release
           cmake --build build --config Release -j$(nproc)
 
       - name: Build C++ Core Inference Engine (Windows)
         if: runner.os == 'Windows'
         run: |
-          cd src_cpp
+          cd core
           cmake -B build
           cmake --build build --config Release
 
