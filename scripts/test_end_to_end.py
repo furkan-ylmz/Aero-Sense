@@ -20,10 +20,14 @@ if sys.stdout:
     except Exception:
         pass
 
-CPP_EXECUTABLE = os.path.join("src_cpp", "build", "Release", "maneuver_inference_engine.exe")
-if not os.path.exists(CPP_EXECUTABLE):
-    # Linux fallback
-    CPP_EXECUTABLE = os.path.join("src_cpp", "build", "maneuver_inference_engine")
+# Search for C++ executable in standard paths
+CPP_CANDIDATES = [
+    os.path.join("core", "build", "Release", "maneuver_inference_engine.exe"),
+    os.path.join("core", "build", "maneuver_inference_engine"),
+    os.path.join("src", "build", "Release", "maneuver_inference_engine.exe"),
+    os.path.join("src", "build", "maneuver_inference_engine"),
+]
+CPP_EXECUTABLE = next((p for p in CPP_CANDIDATES if os.path.exists(p)), CPP_CANDIDATES[0])
 
 INPUT_PORT = 5005
 OUTPUT_PORT = 5006
