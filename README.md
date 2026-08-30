@@ -7,17 +7,17 @@
 ---
 
 <a name="english"></a>
-# Real-Time Tactical Telemetry and Maneuver Classification System
+# Real-Time Telemetry & Maneuver Classifier
 
 [![CI/CD Pipeline](https://github.com/furkan-ylmz/Aero-Sense/actions/workflows/ci.yml/badge.svg)](https://github.com/furkan-ylmz/Aero-Sense/actions)
-![C++ Standard](https://img.shields.io/badge/C%2B%2B-17-blue.svg)
-![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.14-blue.svg)
-![Platform](https://img.shields.io/badge/Platform-Cross--Platform%20(Linux%20%26%20Windows)-green.svg)
-![Latency](https://img.shields.io/badge/Inference%20Latency-%3C%3D%202.0%20ms-brightgreen.svg)
+![C++](https://img.shields.io/badge/C%2B%2B-17-blue.svg)
+![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
+![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20Windows-green.svg)
+![Latency](https://img.shields.io/badge/Latency-%3C%3D%202.0%20ms-brightgreen.svg)
 
-Aero-Sense is a high-performance, defense-grade tactical command and control (C2) situational awareness subsystem designed for real-time 3D radar and transponder (ADS-B / IFF) telemetry processing. 
+Aero-Sense is a high-performance, defense-grade tactical command and control (C2) situational awareness subsystem designed for real-time 3D radar and transponder (ADS-B / IFF) telemetry processing.
 
-The system continuously extracts 8-dimensional kinematic flight derivatives from multi-target trajectories and classifies flight maneuvers across 6 tactical classes (*Straight Cruise, Coordinated Turn, Climb, Descent/Dive, Orbit/Holding, Evasive Maneuver*) using a hybrid deep learning model (1D-CNN + Bidirectional LSTM) running in a native zero-allocation C++17 core engine.
+The system extracts 8D kinematic flight derivatives from multi-target trajectories and classifies 6 tactical maneuvers using a hybrid 1D-CNN + BiLSTM model powered by a zero-allocation C++17 inference core.
 
 ---
 
@@ -238,17 +238,17 @@ Automated integration test results (`scripts/test_end_to_end.py`):
 ---
 
 <a name="türkçe"></a>
-# Gerçek Zamanlı Taktik Telemetri ve Manevra Sınıflandırma Sistemi
+# Gerçek Zamanlı Telemetri ve Manevra Sınıflandırıcı
 
 [![CI/CD Pipeline](https://github.com/furkan-ylmz/Aero-Sense/actions/workflows/ci.yml/badge.svg)](https://github.com/furkan-ylmz/Aero-Sense/actions)
-![C++ Standard](https://img.shields.io/badge/C%2B%2B-17-blue.svg)
-![Python Version](https://img.shields.io/badge/Python-3.11%20%7C%203.12%20%7C%203.14-blue.svg)
-![Platform](https://img.shields.io/badge/Platform-Cross--Platform%20(Linux%20%26%20Windows)-green.svg)
-![Latency](https://img.shields.io/badge/Inference%20Latency-%3C%3D%202.0%20ms-brightgreen.svg)
+![C++](https://img.shields.io/badge/C%2B%2B-17-blue.svg)
+![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
+![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20Windows-green.svg)
+![Latency](https://img.shields.io/badge/Latency-%3C%3D%202.0%20ms-brightgreen.svg)
 
 Aero-Sense; 3D radar sistemleri ve ADS-B transponder kaynaklarından gelen hava hedeflerine ait ham telemetri akışlarını gerçek zamanlı işleyen, hedefin icra ettiği 6 taktiksel uçuş manevrasını (*Düz Seyir, Koordineli Dönüş, Tırmanış, Dalış, Holding/Bekleme, Agresif Kaçış*) derin öğrenme ile anlık sınıflandıran ultra düşük gecikmeli ($\le 2\text{ ms}$) bir Taktiksel Durumsal Farkındalık Alt Sistemidir.
 
-Sistem, çoklu hedef yörüngelerinden dinamik olarak 8 boyutlu kinematik türevler üretir ve sıfır dinamik bellek tahsisli C++17 çekirdek motoru üzerinde çalışan hibrit 1D-CNN + BiLSTM mimarisi ile milisaniye altında sınıflandırma gerçekleştirir.
+Sistem, hava hedeflerinden 8 boyutlu kinematik türevler çıkarır ve sıfır-tahsisli C++17 çıkarım çekirdeği üzerinde çalışan hibrit 1D-CNN + BiLSTM modeliyle 6 taktiksel manevrayı anlık olarak sınıflandırır.
 
 ---
 
