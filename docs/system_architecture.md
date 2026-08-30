@@ -246,20 +246,27 @@ radar-maneuver-classifier/ (Aero-Sense)
 │   ├── Dockerfile.forwarder         # UDP -> InfluxDB Köprü Servisi
 │   └── grafana/
 │       └── provisioning/            # Otomatik panel ve veri kaynağı ayarları
-├── proto/
-│   └── telemetry.proto              # Google Protobuf telemetri şeması
-├── scripts/
-│   ├── generate_synthetic_data.py   # 6 sınıflı sentetik kinematik veri üretici
-│   ├── opensky_streamer.py          # Canlı OpenSky API UDP yayıncısı
-│   └── train_model.py               # PyTorch 1D-CNN + LSTM eğitim ve ONNX export
-├── src_cpp/
+├── core/
 │   ├── CMakeLists.txt               # C++ derleme konfigürasyonu
 │   ├── include/
 │   │   ├── ring_buffer.hpp          # Kayan pencere (Sliding Window) yöneticisi
-│   │   ├── onnx_engine.hpp          # ONNX Runtime C++ sarmalayıcısı
-│   │   └── udp_sender.hpp           # Protobuf UDP soket modülü
-│   └── main.cpp                     # Ana inferans döngüsü
-├── Aero-Sense.md                    # Sistem Mimarisi & Tasarım Dokümanı
+│   │   ├── onnx_engine.hpp          # Yüksek başarımlı çıkarım motoru
+│   │   └── udp_socket.hpp           # Protobuf/Raw UDP soket modülü
+│   └── src/
+│       └── main.cpp                 # Ana inferans döngüsü
+├── docs/
+│   └── system_architecture.md       # Sistem Mimarisi & Tasarım Dokümanı
+├── models/
+│   ├── model_best.pt                # Eğitilmiş PyTorch model ağırlıkları
+│   └── model_cnn_lstm.onnx          # Production ONNX modeli
+├── proto/
+│   ├── telemetry.proto              # Google Protobuf telemetri şeması
+│   └── generated/                   # Üretilen Python Protobuf bağlayıcıları
+├── scripts/
+│   ├── generate_synthetic_data.py   # 6 sınıflı sentetik kinematik veri üretici
+│   ├── opensky_streamer.py          # Canlı OpenSky API UDP yayıncısı
+│   ├── train_model.py               # PyTorch 1D-CNN + LSTM eğitim ve ONNX export
+│   └── test_end_to_end.py           # Otomatik uçtan uca entegrasyon ve gecikme testi
 └── README.md                        # Hızlı Başlangıç ve Kullanım Kılavuzu
 ```
 
